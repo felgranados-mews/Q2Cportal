@@ -1,63 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Ebba FinOps Portal</title>
-    <script defer src="https://app.glean.com/embedded-search-latest.min.js"></script>
-    <style>
-      body {
-        font-family: sans-serif;
-        margin: 2rem;
-        background: #f9fafb;
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    function renderEbba() {
+      if (window.GleanWebSDK && typeof GleanWebSDK.renderChat === "function") {
+        GleanWebSDK.renderChat(document.getElementById("glean-app"), {
+          agentId: "4e47a05a92a34639a076aad88ce881bb"
+        });
+        waitForEbbaInput();
+      } else {
+        setTimeout(renderEbba, 100);
       }
-      #glean-app {
-        height: 600px;
-        width: 100%;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        background: white;
+    }
+
+    renderEbba();
+  });
+
+  // More robust waiting function
+  function waitForEbbaInput() {
+    let attempts = 0;
+    const interval = setInterval(() => {
+      const input = document.querySelector("input[type='text']");
+      const form = input?.closest("form");
+
+      if (input && form) {
+        input.value = "Can you show me all open tickets for my account?";
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+
+        setTimeout(() => {
+          form.dispatchEvent(new Event("submit", { bubbles: true }));
+        }, 300);
+
+        clearInterval(interval);
+      } else {
+        attempts++;
+        if (attempts > 30) clearInterval(interval); // stop after ~10s
       }
-    </style>
-  </head>
-  <body>
-    <h1>Ask Ebba 👇</h1>
-    <div id="glean-app"></div>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        function renderEbba() {
-          if (window.GleanWebSDK && typeof GleanWebSDK.renderChat === "function") {
-            GleanWebSDK.renderChat(document.getElementById("glean-app"), {
-              agentId: "4e47a05a92a34639a076aad88ce881bb"
-            });
-            simulateEbbaQuery(); // 🚀 Add this call
-          } else {
-            setTimeout(renderEbba, 100);
-          }
-        }
-
-        renderEbba();
-      });
-
-      // 🔁 Auto-ask Ebba a question on load
-      function simulateEbbaQuery() {
-        const ask = () => {
-          const input = document.querySelector('input[type="text"]');
-          if (!input) return setTimeout(ask, 300); // Retry until ready
-
-          const query = "Can you show me all open tickets for my account?";
-          input.value = query;
-          input.dispatchEvent(new Event("input", { bubbles: true }));
-
-          const form = input.closest("form");
-          if (form) {
-            setTimeout(() => {
-              form.dispatchEvent(new Event("submit", { bubbles: true }));
-            }, 300);
-          }
-        };
-
-        setTimeout(ask, 2000); // Wait 2s for Ebba to fully load
-      }
-    </script>
-  </body>
-</html>
+    }, 300); // retry every 300ms
+  }
+</script>
