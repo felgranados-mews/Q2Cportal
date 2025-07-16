@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Ebba FinOps Portal</title>
+    <title>Quote to Cash</title>
     <script defer src="https://app.glean.com/embedded-search-latest.min.js"></script>
     <style>
       body {
@@ -9,30 +9,70 @@
         margin: 2rem;
         background: #f9fafb;
       }
-      #glean-app {
+      .bot-container {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+      .bot-box {
+        flex: 1;
+        min-width: 350px;
+        max-width: 600px;
+      }
+      .bot-label {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+      .glean-frame {
         height: 600px;
         width: 100%;
         border: 1px solid #ddd;
         border-radius: 10px;
         background: white;
       }
+      .note {
+        margin-top: 2rem;
+        font-style: italic;
+        color: #444;
+      }
     </style>
   </head>
   <body>
-    <h1>🤖 Ask Ebba</h1>
-    <div id="glean-app"></div>
+    <h1>Quote to Cash</h1>
+
+    <div class="bot-container">
+      <div class="bot-box">
+        <div class="bot-label">💰 <strong>Billing questions?</strong> Ask <strong>Ebba</strong> here:</div>
+        <div id="glean-ebba" class="glean-frame"></div>
+      </div>
+
+      <div class="bot-box">
+        <div class="bot-label">📈 <strong>Revenue Operations questions?</strong> Ask <strong>Revvy</strong> here:</div>
+        <div id="glean-revvy" class="glean-frame"></div>
+      </div>
+    </div>
+
+    <div class="note">
+      ⚠️ If it’s <strong>Nue-related</strong>, it doesn’t matter which one you choose — both bots will reroute your issue to the <strong>Q2C Dream Team™</strong>.
+    </div>
+
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        function renderEbba() {
+        function renderBots() {
           if (window.GleanWebSDK && typeof GleanWebSDK.renderChat === "function") {
-            GleanWebSDK.renderChat(document.getElementById("glean-app"), {
+            // Render Ebba
+            GleanWebSDK.renderChat(document.getElementById("glean-ebba"), {
               agentId: "4e47a05a92a34639a076aad88ce881bb"
             });
+            // Render Revvy
+            GleanWebSDK.renderChat(document.getElementById("glean-revvy"), {
+              agentId: "7007028190a141b995588e661d212bd6"
+            });
           } else {
-            setTimeout(renderEbba, 100);
+            setTimeout(renderBots, 100);
           }
         }
-        renderEbba();
+        renderBots();
       });
     </script>
   </body>
