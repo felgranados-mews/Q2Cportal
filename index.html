@@ -21,6 +21,7 @@
   <body>
     <h1>Ask Ebba 👇</h1>
     <div id="glean-app"></div>
+
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         function renderEbba() {
@@ -28,12 +29,35 @@
             GleanWebSDK.renderChat(document.getElementById("glean-app"), {
               agentId: "4e47a05a92a34639a076aad88ce881bb"
             });
+            simulateEbbaQuery(); // 🚀 Add this call
           } else {
             setTimeout(renderEbba, 100);
           }
         }
+
         renderEbba();
       });
+
+      // 🔁 Auto-ask Ebba a question on load
+      function simulateEbbaQuery() {
+        const ask = () => {
+          const input = document.querySelector('input[type="text"]');
+          if (!input) return setTimeout(ask, 300); // Retry until ready
+
+          const query = "Can you show me all open tickets for my account?";
+          input.value = query;
+          input.dispatchEvent(new Event("input", { bubbles: true }));
+
+          const form = input.closest("form");
+          if (form) {
+            setTimeout(() => {
+              form.dispatchEvent(new Event("submit", { bubbles: true }));
+            }, 300);
+          }
+        };
+
+        setTimeout(ask, 2000); // Wait 2s for Ebba to fully load
+      }
     </script>
   </body>
 </html>
