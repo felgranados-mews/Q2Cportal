@@ -14,20 +14,21 @@
         font-style: italic;
         color: #444;
       }
-      .bot-container {
-        display: flex;
-        gap: 2rem;
-        flex-wrap: wrap;
+      .button-container {
+        margin-bottom: 2rem;
       }
-      .bot-box {
-        flex: 1;
-        min-width: 350px;
-        max-width: 600px;
+      button {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+        margin-right: 1rem;
+        border: none;
+        border-radius: 8px;
+        background-color: #2563eb;
+        color: white;
+        cursor: pointer;
       }
-      .bot-label {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
+      button:hover {
+        background-color: #1e40af;
       }
       .glean-frame {
         height: 600px;
@@ -35,6 +36,7 @@
         border: 1px solid #ddd;
         border-radius: 10px;
         background: white;
+        display: none;
       }
     </style>
   </head>
@@ -45,36 +47,34 @@
 
     <h1>Quote to Cash</h1>
 
-    <div class="bot-container">
-      <!-- Revvy goes first (left) -->
-      <div class="bot-box">
-        <div class="bot-label">📈 Revenue Operations questions? Ask <strong>Revvy</strong> here:</div>
-        <div id="glean-revvy" class="glean-frame"></div>
-      </div>
-
-      <!-- Ebba goes second (right) -->
-      <div class="bot-box">
-        <div class="bot-label">💰 Billing questions? Ask <strong>Ebba</strong> here:</div>
-        <div id="glean-ebba" class="glean-frame"></div>
-      </div>
+    <div class="button-container">
+      <button onclick="loadBot('billing')">💰 I have a billing question</button>
+      <button onclick="loadBot('revenue')">📈 I have a revenue operations question</button>
     </div>
 
+    <div id="glean-app" class="glean-frame"></div>
+
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        function renderBots() {
+      function loadBot(type) {
+        const container = document.getElementById("glean-app");
+        container.style.display = "block";
+        container.innerHTML = ""; // Clear previous bot if reloaded
+
+        const agentId =
+          type === "billing"
+            ? "4e47a05a92a34639a076aad88ce881bb"
+            : "7007028190a141b995588e661d212bd6";
+
+        function tryRender() {
           if (window.GleanWebSDK && typeof GleanWebSDK.renderChat === "function") {
-            GleanWebSDK.renderChat(document.getElementById("glean-revvy"), {
-              agentId: "7007028190a141b995588e661d212bd6"
-            });
-            GleanWebSDK.renderChat(document.getElementById("glean-ebba"), {
-              agentId: "4e47a05a92a34639a076aad88ce881bb"
-            });
+            GleanWebSDK.renderChat(container, { agentId });
           } else {
-            setTimeout(renderBots, 100);
+            setTimeout(tryRender, 100);
           }
         }
-        renderBots();
-      });
+
+        tryRender();
+      }
     </script>
   </body>
 </html>
