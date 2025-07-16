@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Ebba FinOps Portal</title>
+    <script defer src="https://app.glean.com/embedded-search-latest.min.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 2rem;
+        background: #f9fafb;
+      }
+      #glean-app {
+        height: 600px;
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ask Ebba 👇</h1>
+    <div id="glean-app"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        function renderEbba() {
+          if (window.GleanWebSDK && typeof GleanWebSDK.renderChat === "function") {
+            GleanWebSDK.renderChat(document.getElementById("glean-app"), {
+              agentId: "4e47a05a92a34639a076aad88ce881bb"
+            });
+          } else {
+            setTimeout(renderEbba, 100);
+          }
+        }
+        renderEbba();
+      });
+    </script>
+  </body>
+</html>
