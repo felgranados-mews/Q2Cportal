@@ -9,6 +9,11 @@
         margin: 2rem;
         background: #f9fafb;
       }
+      .note {
+        margin-bottom: 2rem;
+        font-style: italic;
+        color: #444;
+      }
       .bot-container {
         display: flex;
         gap: 2rem;
@@ -20,8 +25,9 @@
         max-width: 600px;
       }
       .bot-label {
-        font-weight: bold;
-        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
       }
       .glean-frame {
         height: 600px;
@@ -30,43 +36,38 @@
         border-radius: 10px;
         background: white;
       }
-      .note {
-        margin-top: 2rem;
-        font-style: italic;
-        color: #444;
-      }
     </style>
   </head>
   <body>
+    <div class="note">
+      ⚠️ If it’s <strong>Nue-related</strong>, it doesn’t matter which one you choose — both bots will reroute your issue to the <strong>Q2C Dream Team™</strong>.
+    </div>
+
     <h1>Quote to Cash</h1>
 
     <div class="bot-container">
+      <!-- Revvy goes first (left) -->
       <div class="bot-box">
-        <div class="bot-label">💰 <strong>Billing questions?</strong> Ask <strong>Ebba</strong> here:</div>
-        <div id="glean-ebba" class="glean-frame"></div>
-      </div>
-
-      <div class="bot-box">
-        <div class="bot-label">📈 <strong>Revenue Operations questions?</strong> Ask <strong>Revvy</strong> here:</div>
+        <div class="bot-label">📈 Revenue Operations questions? Ask <strong>Revvy</strong> here:</div>
         <div id="glean-revvy" class="glean-frame"></div>
       </div>
-    </div>
 
-    <div class="note">
-      ⚠️ If it’s <strong>Nue-related</strong>, it doesn’t matter which one you choose — both bots will reroute your issue to the <strong>Q2C Dream Team™</strong>.
+      <!-- Ebba goes second (right) -->
+      <div class="bot-box">
+        <div class="bot-label">💰 Billing questions? Ask <strong>Ebba</strong> here:</div>
+        <div id="glean-ebba" class="glean-frame"></div>
+      </div>
     </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         function renderBots() {
           if (window.GleanWebSDK && typeof GleanWebSDK.renderChat === "function") {
-            // Render Ebba
-            GleanWebSDK.renderChat(document.getElementById("glean-ebba"), {
-              agentId: "4e47a05a92a34639a076aad88ce881bb"
-            });
-            // Render Revvy
             GleanWebSDK.renderChat(document.getElementById("glean-revvy"), {
               agentId: "7007028190a141b995588e661d212bd6"
+            });
+            GleanWebSDK.renderChat(document.getElementById("glean-ebba"), {
+              agentId: "4e47a05a92a34639a076aad88ce881bb"
             });
           } else {
             setTimeout(renderBots, 100);
