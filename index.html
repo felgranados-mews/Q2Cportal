@@ -5,22 +5,34 @@
     <script defer src="https://app.glean.com/embedded-search-latest.min.js"></script>
     <style>
       body {
-        font-family: sans-serif;
-        margin: 2rem;
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
         background: #f9fafb;
+        -webkit-font-smoothing: antialiased;
       }
 
-      h1 {
-        margin-bottom: 0.5rem;
+      .container {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 0 1rem;
       }
 
       .broadcast {
         background-color: #fff3cd;
-        border: 1px solid #ffeeba;
-        padding: 1rem;
-        border-radius: 8px;
-        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #ffeeba;
+        padding: 1rem 2rem;
         color: #856404;
+        font-size: 0.95rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      h1 {
+        margin-bottom: 0.5rem;
+        font-size: 2rem;
+        font-weight: 600;
+        color: #111827;
       }
 
       .urgent-button {
@@ -32,6 +44,8 @@
         text-decoration: none;
         border-radius: 6px;
         font-weight: bold;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: background-color 0.2s ease;
       }
 
       .urgent-button:hover {
@@ -41,24 +55,32 @@
       #glean-app {
         height: 600px;
         width: 100%;
-        border: 1px solid #ddd;
+        border: 1px solid #e5e7eb;
         border-radius: 10px;
         background: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      }
+
+      /* Hide Glean's built-in title */
+      #glean-app .glean-header {
+        display: none !important;
       }
     </style>
   </head>
   <body>
-    <h1>FinOps Support Portal</h1>
-
-    <a class="urgent-button" href="https://your-ebba-exec-link.com" target="_blank">
-      🔺 Escalate to Ebba Exec
-    </a>
-
     <div class="broadcast">
-      📣 There is a bug related to <strong>Order Activation in Nue</strong>. Financial Systems is working to fix this. More details in ticket: <a href="https://your-ticket-system.com/FS-123" target="_blank">FS-123</a>.
+      📣 There is a bug related to <strong>&nbsp;Order Activation in Nue</strong>. Financial Systems is working to fix this. More details in ticket: <a href="https://your-ticket-system.com/FS-123" target="_blank" style="margin-left: 4px; text-decoration: underline; color: #0d6efd;">FS-123</a>.
     </div>
 
-    <div id="glean-app"></div>
+    <div class="container">
+      <h1>FinOps Support Portal</h1>
+
+      <a class="urgent-button" href="https://your-ebba-exec-link.com" target="_blank">
+        🔺 Escalate to Ebba Exec
+      </a>
+
+      <div id="glean-app"></div>
+    </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -66,6 +88,16 @@
           if (window.GleanWebSDK && typeof GleanWebSDK.renderChat === "function") {
             GleanWebSDK.renderChat(document.getElementById("glean-app"), {
               agentId: "4e47a05a92a34639a076aad88ce881bb"
+            });
+
+            const observer = new MutationObserver(() => {
+              const header = document.querySelector("#glean-app .glean-header");
+              if (header) header.style.display = "none";
+            });
+
+            observer.observe(document.getElementById("glean-app"), {
+              childList: true,
+              subtree: true
             });
           } else {
             setTimeout(renderEbba, 100);
