@@ -9,6 +9,35 @@
         margin: 2rem;
         background: #f9fafb;
       }
+
+      h1 {
+        margin-bottom: 0.5rem;
+      }
+
+      .broadcast {
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        color: #856404;
+      }
+
+      .urgent-button {
+        display: inline-block;
+        margin: 0.5rem 0 1.5rem 0;
+        padding: 0.6rem 1rem;
+        background-color: #dc2626;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+      }
+
+      .urgent-button:hover {
+        background-color: #b91c1c;
+      }
+
       #glean-app {
         height: 600px;
         width: 100%;
@@ -19,8 +48,18 @@
     </style>
   </head>
   <body>
-    <h1>🤖 Ask Ebba</h1>
+    <h1>FinOps Support Portal</h1>
+
+    <a class="urgent-button" href="https://your-ebba-exec-link.com" target="_blank">
+      🔺 Escalate to Ebba Exec
+    </a>
+
+    <div class="broadcast">
+      📣 There is a bug related to <strong>Order Activation in Nue</strong>. Financial Systems is working to fix this. More details in ticket: <a href="https://your-ticket-system.com/FS-123" target="_blank">FS-123</a>.
+    </div>
+
     <div id="glean-app"></div>
+
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         function renderEbba() {
