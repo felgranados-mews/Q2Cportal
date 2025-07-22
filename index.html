@@ -7,6 +7,7 @@
       :root {
         --mews-dark: #1b1b1b;
         --mews-accent: #ff5c66;
+        --mews-accent-hover: #e04b56;
         --mews-light-bg: #f4f2ff;
       }
 
@@ -35,16 +36,17 @@
       }
 
       .logo {
-        display: inline-block;
+        display: flex;
+        align-items: center;
         margin-bottom: 1rem;
       }
 
       .logo img {
-        height: 32px;
+        height: 28px;
       }
 
       h1 {
-        margin-bottom: 0.5rem;
+        margin: 0.5rem 0 1rem 0;
         font-size: 2rem;
         font-weight: 600;
         color: var(--mews-dark);
@@ -52,19 +54,20 @@
 
       .urgent-button {
         display: inline-block;
-        margin: 0.5rem 0 1.5rem 0;
-        padding: 0.6rem 1rem;
+        padding: 0.75rem 1.5rem;
         background-color: var(--mews-accent);
         color: white;
         text-decoration: none;
-        border-radius: 6px;
+        border-radius: 1000px;
         font-weight: bold;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        font-size: 0.95rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
         transition: background-color 0.2s ease;
+        margin-bottom: 1.5rem;
       }
 
       .urgent-button:hover {
-        background-color: #e04b56;
+        background-color: var(--mews-accent-hover);
       }
 
       #glean-app {
@@ -76,7 +79,6 @@
         box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       }
 
-      /* Hide Glean's built-in title */
       #glean-app .glean-header {
         display: none !important;
       }
@@ -88,9 +90,11 @@
     </div>
 
     <div class="container">
-      <a href="https://www.mews.com" class="logo" target="_blank">
-        <img src="https://uploads-ssl.webflow.com/62fa8c5413b9ee3ef9711c9b/62fa90caa94a38735e9ea261_mews-logo-black.svg" alt="Mews logo">
-      </a>
+      <div class="logo">
+        <a href="https://www.mews.com" target="_blank" style="text-decoration: none;">
+          <img src="https://uploads-ssl.webflow.com/62fa8c5413b9ee3ef9711c9b/62fa90caa94a38735e9ea261_mews-logo-black.svg" alt="Mews logo">
+        </a>
+      </div>
 
       <h1>FinOps Support Portal</h1>
 
