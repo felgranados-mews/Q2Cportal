@@ -4,17 +4,17 @@
     <title>Ebba FinOps Portal</title>
     <script defer src="https://app.glean.com/embedded-search-latest.min.js"></script>
     <style>
+      :root {
+        --mews-dark: #1b1b1b;
+        --mews-accent: #ff5c66;
+        --mews-light-bg: #f4f2ff;
+      }
+
       body {
         margin: 0;
         font-family: 'Segoe UI', sans-serif;
-        background: #f9fafb;
+        background: var(--mews-light-bg);
         -webkit-font-smoothing: antialiased;
-      }
-
-      .container {
-        max-width: 900px;
-        margin: 2rem auto;
-        padding: 0 1rem;
       }
 
       .broadcast {
@@ -28,18 +28,33 @@
         align-items: center;
       }
 
+      .container {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+
+      .logo {
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+
+      .logo img {
+        height: 32px;
+      }
+
       h1 {
         margin-bottom: 0.5rem;
         font-size: 2rem;
         font-weight: 600;
-        color: #111827;
+        color: var(--mews-dark);
       }
 
       .urgent-button {
         display: inline-block;
         margin: 0.5rem 0 1.5rem 0;
         padding: 0.6rem 1rem;
-        background-color: #dc2626;
+        background-color: var(--mews-accent);
         color: white;
         text-decoration: none;
         border-radius: 6px;
@@ -49,7 +64,7 @@
       }
 
       .urgent-button:hover {
-        background-color: #b91c1c;
+        background-color: #e04b56;
       }
 
       #glean-app {
@@ -73,6 +88,10 @@
     </div>
 
     <div class="container">
+      <a href="https://www.mews.com" class="logo" target="_blank">
+        <img src="https://uploads-ssl.webflow.com/62fa8c5413b9ee3ef9711c9b/62fa90caa94a38735e9ea261_mews-logo-black.svg" alt="Mews logo">
+      </a>
+
       <h1>FinOps Support Portal</h1>
 
       <a class="urgent-button" href="https://your-ebba-exec-link.com" target="_blank">
