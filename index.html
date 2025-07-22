@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Quote to Cash</title>
+    <title>Ebba FinOps Portal</title>
     <script defer src="https://app.glean.com/embedded-search-latest.min.js"></script>
     <style>
       body {
@@ -9,72 +9,31 @@
         margin: 2rem;
         background: #f9fafb;
       }
-      .note {
-        margin-bottom: 2rem;
-        font-style: italic;
-        color: #444;
-      }
-      .button-container {
-        margin-bottom: 2rem;
-      }
-      button {
-        font-size: 1rem;
-        padding: 0.8rem 1.5rem;
-        margin-right: 1rem;
-        border: none;
-        border-radius: 8px;
-        background-color: #2563eb;
-        color: white;
-        cursor: pointer;
-      }
-      button:hover {
-        background-color: #1e40af;
-      }
-      .glean-frame {
+      #glean-app {
         height: 600px;
         width: 100%;
         border: 1px solid #ddd;
         border-radius: 10px;
         background: white;
-        display: none;
       }
     </style>
   </head>
   <body>
-    <div class="note">
-      ⚠️ If it’s <strong>Nue-related</strong>, it doesn’t matter which one you choose — both bots will reroute your issue to the <strong>Q2C Dream Team™</strong>.
-    </div>
-
-    <h1>Quote to Cash</h1>
-
-    <div class="button-container">
-      <button onclick="loadBot('billing')">💰 I have a billing question</button>
-      <button onclick="loadBot('revenue')">📈 I have a revenue operations question</button>
-    </div>
-
-    <div id="glean-app" class="glean-frame"></div>
-
+    <h1>🤖 Ask Ebba</h1>
+    <div id="glean-app"></div>
     <script>
-      function loadBot(type) {
-        const container = document.getElementById("glean-app");
-        container.style.display = "block";
-        container.innerHTML = ""; // Clear previous bot if reloaded
-
-        const agentId =
-          type === "billing"
-            ? "4e47a05a92a34639a076aad88ce881bb"
-            : "7007028190a141b995588e661d212bd6";
-
-        function tryRender() {
+      document.addEventListener("DOMContentLoaded", () => {
+        function renderEbba() {
           if (window.GleanWebSDK && typeof GleanWebSDK.renderChat === "function") {
-            GleanWebSDK.renderChat(container, { agentId });
+            GleanWebSDK.renderChat(document.getElementById("glean-app"), {
+              agentId: "4e47a05a92a34639a076aad88ce881bb"
+            });
           } else {
-            setTimeout(tryRender, 100);
+            setTimeout(renderEbba, 100);
           }
         }
-
-        tryRender();
-      }
+        renderEbba();
+      });
     </script>
   </body>
 </html>
